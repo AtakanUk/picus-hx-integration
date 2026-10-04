@@ -1,0 +1,3 @@
+requests>=2.28
+# only for host-lookup --incident
+resilient>=40.0

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "picus-hx-integration"
+version = "1.0.0"
+description = "Picus simulation results to Trellix HX deny list, plus HX host lookup and search"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Atakan Ük" }]
+requires-python = ">=3.11"
+dynamic = ["dependencies"]
+
+[project.urls]
+Repository = "https://github.com/AtakanUk/picus-hx-integration"
+
+[project.scripts]
+picus-hx = "picus_hx_integration.cli:main"
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# BLE (blind except) is left out on purpose: the integrations catch broad exceptions at
+# API boundaries so that one failing record is logged and reported instead of stopping a batch.
+select = ["E", "W", "F", "I", "B", "UP", "N", "PERF", "SIM", "RUF"]
+# Line length is left to the formatter; long HTML/SQL templates and messages stay on one line.
+ignore = ["E501"]
